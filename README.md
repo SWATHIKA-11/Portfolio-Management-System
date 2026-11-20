@@ -3,7 +3,7 @@
 A simple, clean web app to track your investments, calculate profit & loss, and see how your money is spread across asset types. It runs fully in the browser: no backend, no installation, no sign-up.
 ## Screenshot
 
-![Portfolio Management Tool](assets/screenshot.png)
+![Portfolio Management Tool](public/assets/screenshot.png)
 
 ## Features
 
