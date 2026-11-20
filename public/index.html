@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Management Tool</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Portfolio Management Tool</h1>
+    <p class="subtitle">Track your investments, see your profit &amp; loss, and understand your allocation.</p>
+  </header>
+
+  <main class="container">
+    <!-- Summary cards -->
+    <section class="cards" aria-label="Portfolio summary">
+      <div class="card">
+        <span class="card-label">Total Invested</span>
+        <span class="card-value" id="totalInvested">₹0.00</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Current Value</span>
+        <span class="card-value" id="currentValue">₹0.00</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Profit / Loss</span>
+        <span class="card-value" id="profitLoss">₹0.00</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Return</span>
+        <span class="card-value" id="returnPct">0.00%</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Add / edit form -->
+      <section class="panel">
+        <h2 id="formTitle">Add Investment</h2>
+        <form id="assetForm" novalidate>
+          <input type="hidden" id="assetId" />
+
+          <label for="name">Asset name</label>
+          <input type="text" id="name" placeholder="e.g. Reliance Industries" required />
+
+          <label for="type">Asset type</label>
+          <select id="type" required>
+            <option value="Stock">Stock</option>
+            <option value="Mutual Fund">Mutual Fund</option>
+            <option value="Crypto">Crypto</option>
+            <option value="Gold">Gold</option>
+            <option value="Bond">Bond</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" min="0" step="any" placeholder="e.g. 10" required />
+
+          <label for="buyPrice">Buy price (per unit)</label>
+          <input type="number" id="buyPrice" min="0" step="any" placeholder="e.g. 2400" required />
+
+          <label for="currentPrice">Current price (per unit)</label>
+          <input type="number" id="currentPrice" min="0" step="any" placeholder="e.g. 2650" required />
+
+          <p class="error" id="formError" role="alert"></p>
+
+          <div class="btn-row">
+            <button type="submit" class="btn primary" id="saveBtn">Add Investment</button>
+            <button type="button" class="btn" id="cancelBtn" hidden>Cancel edit</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Allocation chart -->
+      <section class="panel">
+        <h2>Allocation by Type</h2>
+        <canvas id="allocationChart" width="320" height="320" aria-label="Allocation pie chart"></canvas>
+        <ul class="legend" id="legend"></ul>
+        <p class="empty" id="chartEmpty">Add an investment to see your allocation.</p>
+      </section>
+    </div>
+
+    <!-- Holdings table -->
+    <section class="panel">
+      <div class="table-head">
+        <h2>Your Holdings</h2>
+        <div class="tools">
+          <input type="search" id="search" placeholder="Search by name…" aria-label="Search holdings" />
+          <select id="filterType" aria-label="Filter by type">
+            <option value="All">All types</option>
+            <option value="Stock">Stock</option>
+            <option value="Mutual Fund">Mutual Fund</option>
+            <option value="Crypto">Crypto</option>
+            <option value="Gold">Gold</option>
+            <option value="Bond">Bond</option>
+            <option value="Other">Other</option>
+          </select>
+          <button class="btn" id="exportBtn" type="button">Export CSV</button>
+          <button class="btn danger" id="clearBtn" type="button">Clear all</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th class="num">Qty</th>
+              <th class="num">Buy price</th>
+              <th class="num">Current price</th>
+              <th class="num">Invested</th>
+              <th class="num">Value</th>
+              <th class="num">P/L</th>
+              <th class="num">Return</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="tableEmpty">No holdings yet. Add your first investment using the form.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Portfolio Management Tool · Data is stored only in your browser (localStorage).</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
